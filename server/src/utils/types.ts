@@ -2,30 +2,29 @@ import { Request } from "express";
 
 //user types:
 export interface user {
-    username: string;
-    password: string;
+  email: string;
+  password: string;
 }
-
 
 //middleware types:
 export interface ReqUser {
-    username: string;
-    LoggedIn: boolean;
+  email: string;
+  LoggedIn: boolean;
 }
 
 export interface CustomRequest extends Request {
-  user?: ReqUser; 
+  user?: ReqUser;
 }
 
 //Auth Service Types:
 
 export interface LoginProps {
-  username: string;
+  email: string;
   password: string;
 }
 
 export interface VerifyProps {
-    token: string;
+  token: string;
 }
 
 //Vehicle Service Types:
@@ -35,6 +34,6 @@ export interface AddVehicleToDBProps {
   phoneNumber: number;
   numPictures: number;
   pictureURLs: Array<string>;
-  userName: string;
+  email: string;
   userLoggedIn: boolean;
 }

@@ -58,7 +58,7 @@ as asked in the assignment, only 1 user is populated manually. there is no regis
 npm run populate-users
 ```
 
-and a user will be created in the connected mongodb cluster, with the username: "Faraz@RhodiumTech.com"
+and a user will be created in the connected mongodb cluster, with the email: "Faraz@RhodiumTech.com"
 
 ### Running server:
 
@@ -76,13 +76,13 @@ npm start
 
 ### Testing Login:
 
-after running server, run this command in terminal to test the login route. 
+after running server, run this command in terminal to test the login route.
 
 ```
 curl -X POST http://localhost:4000/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-    "username": "Faraz@RhodiumTech.com",
+    "email": "Faraz@RhodiumTech.com",
     "password": "123456abc"
   }'
 ```
@@ -90,5 +90,5 @@ curl -X POST http://localhost:4000/auth/login \
 it will return a message similar to:
 
 ```
-{"message":"Login successful","user":{"_id":"<recordID>","username":"Faraz@RhodiumTech.com","password":"$2b$10$CL3atF8lfo78FWeonaMI0umhCjBXluT5boSkaENW1l.WqAnBVSNta","createdAt":"2025-01-11T01:57:04.026Z","updatedAt":"2025-01-11T01:57:04.026Z","__v":0},"token":<personal token>}
+{"message":"Login successful","user":{"_id":"<recordID>","email":"Faraz@RhodiumTech.com","password":"$2b$10$CL3atF8lfo78FWeonaMI0umhCjBXluT5boSkaENW1l.WqAnBVSNta","createdAt":"2025-01-11T01:57:04.026Z","updatedAt":"2025-01-11T01:57:04.026Z","__v":0},"token":<personal token>}
 ```

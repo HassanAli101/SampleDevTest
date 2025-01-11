@@ -7,7 +7,7 @@ export const AddVehicleToDB = async ({
   phoneNumber,
   numPictures,
   pictureURLs,
-  userName,
+  email,
   userLoggedIn,
 }: AddVehicleToDBProps) => {
   try {
@@ -17,7 +17,7 @@ export const AddVehicleToDB = async ({
       phoneNumber,
       numPictures,
       pictureURLs,
-      userName,
+      email,
       userLoggedIn,
     });
     return await newVehicle.save();

@@ -5,9 +5,9 @@ import { LoginProps, ReqUser, VerifyProps } from "../utils/types";
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
-export const LoginUser = async ({ username, password }: LoginProps) => {
+export const LoginUser = async ({ email, password }: LoginProps) => {
   try {
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ email });
     if (!user) {
       throw new Error("User not found");
     }
@@ -15,7 +15,7 @@ export const LoginUser = async ({ username, password }: LoginProps) => {
     if (!isPasswordValid) {
       throw new Error("Invalid credentials");
     }
-    const payload: ReqUser = { username: user.username, LoggedIn: true };
+    const payload: ReqUser = { email: user.email, LoggedIn: true };
     const token: string = jwt.sign(payload, SECRET_KEY);
     return { user, token };
   } catch (error) {

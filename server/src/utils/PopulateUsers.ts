@@ -15,11 +15,11 @@ const populateUsers = async () => {
     for (const user of users) {
       const hashedPassword = await bcrypt.hash(user.password, 10);
       const newUser = new UserModel({
-        username: user.username,
+        email: user.email,
         password: hashedPassword,
       });
       await newUser.save();
-      console.log(`User ${user.username} populated successfully.`);
+      console.log(`User ${user.email} populated successfully.`);
     }
     console.log("All users have been populated.");
   } catch (error) {
@@ -32,4 +32,3 @@ const populateUsers = async () => {
 
 // Main execution
 connectDB().then(populateUsers);
-

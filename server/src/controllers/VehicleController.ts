@@ -9,7 +9,7 @@ export const AddVehicle = async (req: Request, res: Response) => {
       phoneNumber,
       numPictures,
       pictureURLs,
-      userName,
+      email,
       userLoggedIn,
     } = req.body;
     await AddVehicleToDB({
@@ -18,7 +18,7 @@ export const AddVehicle = async (req: Request, res: Response) => {
       phoneNumber,
       numPictures,
       pictureURLs,
-      userName,
+      email,
       userLoggedIn,
     });
     res.status(200).json({ msg: "Vehicle Added" });

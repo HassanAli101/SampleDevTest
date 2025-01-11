@@ -6,5 +6,5 @@ export const envPath = path.resolve(__dirname, "../../.env.local");
 
 // populating users
 export const users: user[] = [
-  { username: "Faraz@RhodiumTech.com", password: "123456abc" },
+  { email: "Faraz@RhodiumTech.com", password: "123456abc" },
 ];

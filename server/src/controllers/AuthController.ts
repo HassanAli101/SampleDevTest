@@ -4,8 +4,8 @@ import { ReqUser } from "../utils/types";
 
 export const Login = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
-    const { user, token } = await LoginUser({ username, password });
+    const { email, password } = req.body;
+    const { user, token } = await LoginUser({ email, password });
     res.status(200).json({ message: "Login successful", user, token });
   } catch (error) {
     console.error("Error while Loggin in User: ", error.message || error);

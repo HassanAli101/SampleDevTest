@@ -23,7 +23,7 @@ const vehicleSchema = new Schema(
       type: Array,
       required: true,
     },
-    userName: {
+    email: {
       type: String,
       required: true,
     },
