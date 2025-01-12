@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Button, Typography } from "@mui/material";
+import ImagePreview from "./ImagePreview";
 
 interface PicturesFieldProps {
   maxPictures: number;
@@ -12,13 +13,13 @@ const PicturesField: React.FC<PicturesFieldProps> = ({
 }) => {
   const [pictures, setPictures] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
       const fileArray = Array.from(files);
 
-      // Check for duplicate file names
       const duplicateFiles = fileArray.filter((file) =>
         pictures.some((picture) => picture.name === file.name)
       );
@@ -37,7 +38,7 @@ const PicturesField: React.FC<PicturesFieldProps> = ({
         return;
       }
 
-      setError(null); 
+      setError(null);
       const updatedPictures = [...pictures, ...fileArray];
       setPictures(updatedPictures);
       onPicturesChange(updatedPictures);
@@ -50,57 +51,53 @@ const PicturesField: React.FC<PicturesFieldProps> = ({
     onPicturesChange(updatedPictures);
   };
 
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
-    <div>
-      <Typography variant="body1">Upload Pictures</Typography>
+    <Stack sx={{ padding: "10px" }}>
+      <ImagePreview pictures={pictures} onRemovePicture={handleRemovePicture} />
+
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={handleButtonClick} // Trigger file input manually
+        style={{
+          marginTop: "16px",
+          padding: "12px 24px",
+          fontSize: "16px",
+          fontWeight: "bold",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        Add Images
+      </Button>
       <input
         type="file"
         multiple
         accept="image/*"
+        ref={fileInputRef}
         onChange={handleFileChange}
+        style={{ display: "none" }} 
       />
+
       {error && (
-        <Typography variant="body2" color="error" style={{ marginTop: "8px" }}>
+        <Typography
+          variant="body2"
+          color="error"
+          style={{
+            marginTop: "8px",
+            fontWeight: "bold",
+            color: "#e74c3c",
+          }}
+        >
           {error}
         </Typography>
       )}
-      <Stack
-        direction="row"
-        spacing={2}
-        flexWrap="wrap"
-        style={{ marginTop: "16px" }}
-      >
-        {pictures.map((picture, index) => (
-          <div key={picture.name} style={{ position: "relative" }}>
-            <img
-              src={URL.createObjectURL(picture)}
-              alt={`Preview ${index + 1}`}
-              style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                borderRadius: "4px",
-                margin: "4px",
-              }}
-            />
-            <Button
-              variant="contained"
-              color="error"
-              size="small"
-              style={{
-                position: "absolute",
-                top: "0",
-                right: "0",
-                padding: "2px",
-              }}
-              onClick={() => handleRemovePicture(index)}
-            >
-              X
-            </Button>
-          </div>
-        ))}
-      </Stack>
-    </div>
+    </Stack>
   );
 };
 
