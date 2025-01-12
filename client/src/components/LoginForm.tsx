@@ -1,19 +1,25 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Stack, Typography } from "@mui/material";
 import PasswordInput from "./primitive/PasswordInput";
-import { FieldValues, UseFormHandleSubmit, Control } from "react-hook-form";
+import { useLoginForm } from "../hooks/useLoginForm";
 
 interface LoginFormProps {
-  control: Control<FieldValues>;
-  errors: any;
-  onSubmit: (data: { email: string; password: string }) => void; 
-  handleSubmit: UseFormHandleSubmit<FieldValues>; 
+  onSubmit: (data: { email: string; password: string }) => void;
+  customError?: string;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ control, errors, onSubmit, handleSubmit }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
+  const { control, handleSubmit, errors } = useLoginForm();
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack
+        spacing={2}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ width: "100%" }}
+      >
         <Controller
           name="email"
           control={control}
@@ -39,11 +45,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ control, errors, onSubmit, handle
             />
           )}
         />
-      <Button
-        type="submit"
+
+        {customError !== "" && (
+          <Typography color="error" variant="body2" sx={{ marginTop: 1 }}>
+            {customError}
+          </Typography>
+        )}
+        <Button
+          type="submit"
+          variant="outlined"
+          color="secondary"
+          sx={{
+            padding: "8px",
+            width: "80%",
+            display: "block",
+            margin: "0 auto",
+          }}
         >
-        Login
-      </Button>
+          Login
+        </Button>
+      </Stack>
     </form>
   );
 };

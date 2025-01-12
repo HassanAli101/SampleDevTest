@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Stack, Typography, Box} from "@mui/material";
 import useAuthStore from "../services/state/Auth";
-import { useLoginForm } from "../hooks/useLoginForm";
 import { loginUser } from "../services/api/auth";
 import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { setUserStatus, setUserEmail, setUserToken } = useAuthStore();
-
-  const { control, handleSubmit, errors } = useLoginForm();
+  const [loginError, setLoginError] = useState<string>("");
 
   const handleLogin = async (data: { email: string; password: string }) => {
     try {
@@ -17,26 +16,72 @@ const LoginPage = () => {
       setUserEmail(userInfo.user.email);
       setUserStatus(true);
       setUserToken(userInfo.token);
-      alert("Login Successful");
+      console.log("Login Successful");
       navigate("/VehicleForm");
     } catch (error: any) {
       console.error("Error during login:", error.message);
-      alert("Login Failed");
+      setLoginError("Incorrect Email or Password");
     }
   };
 
   return (
-    <div className="container mt-24 mx-auto px-12 py-4">
-      <h1 className="text-white mb-4 text-xl sm:text-5xl lg:text-8xl lg:leading-normal font-extrabold">
-        LOGIN
-      </h1>
-      <LoginForm
-        control={control}
-        errors={errors}
-        onSubmit={handleLogin}
-        handleSubmit={handleSubmit}
-      />
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #c8b6ff, #3b82f6, #1e40af)",
+        padding: 2,
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: "white",
+          borderRadius: 2,
+          padding: 4,
+          boxShadow: 3,
+          width: "100%",
+          maxWidth: 400,
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="h5" sx={{ marginBottom: 2, color: "#1e40af" }}>
+          WELCOME
+        </Typography>
+
+        <LoginForm
+          onSubmit={handleLogin}
+          customError={loginError}
+        />
+
+        <Stack
+          direction="column"
+          spacing={2}
+          justifyContent="center"
+          sx={{ marginTop: 2 }}
+        >
+          <Typography variant="body2" color="textSecondary">
+            Don't have an account? Please use these credentials:
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ fontWeight: "bold" }}
+          >
+            Email:{" "}
+            <span style={{ color: "#9c27b0" }}>Faraz@RhodiumTech.com</span>
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ fontWeight: "bold" }}
+          >
+            Password: <span style={{ color: "#9c27b0" }}>123456abc</span>
+          </Typography>
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 

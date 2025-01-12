@@ -1,12 +1,17 @@
 import Router from "./services/router/router";
-
+import { Box } from "@mui/material";
 import "./App.css";
 
 function App() {
   return (
-    <main className="bg-gradient-to-r from-green-500 via-blue-500 to-blue-900">
+    <Box
+      sx={{
+        background: "linear-gradient(to right, #c8b6ff, #3b82f6, #1e40af)",
+        minHeight: "100vh",
+      }}
+    >
       <Router />
-    </main>
+    </Box>
   );
 }
 
