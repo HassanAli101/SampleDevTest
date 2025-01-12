@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import { envPath } from "./utils/constants";
+import path from "path";
 
 // Load environment variables
 import { loadEnvVars } from "./utils/loadEnvVars";
@@ -20,15 +21,20 @@ const PORT = process.env.PORT || 4000;
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:3000", // or the vercel link.
-    credentials: true,
+    origin: "*",
   })
 );
 app.use(express.json());
+app.use("/UserUploads", express.static(path.join(__dirname, "UserUploads")));
 
 // Route setup
 app.use("/vehicle", VehicleRoutes);
 app.use("/auth", AuthRoutes);
+
+// Default root route
+app.get("/", (req, res) => {
+  res.send("server is running");
+});
 
 // Connect to DB and start server
 connectDB().then(() => {

@@ -20,7 +20,7 @@ const vehicleSchema = new Schema(
       required: true,
     },
     pictureUrls: {
-      type: Array,
+      type: [String],
       required: true,
     },
     email: {

@@ -33,7 +33,7 @@ export interface AddVehicleToDBProps {
   price: number;
   phoneNumber: number;
   numPictures: number;
-  pictureURLs: Array<string>;
+  pictureUrls: Array<string>;
   email: string;
   userLoggedIn: boolean;
 }

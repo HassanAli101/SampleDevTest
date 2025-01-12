@@ -15,6 +15,7 @@ export const authenticateJWT = (
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     res.status(401).json({ message: "Unauthorized access" });
+    return;
   }
 
   const token = authHeader.split(" ")[1];
@@ -27,6 +28,7 @@ export const authenticateJWT = (
   } catch (error) {
     console.error("JWT verification failed:", error.message || error);
     res.status(403).json({ message: "Invalid or expired token" });
+    return;
   }
 };
 
@@ -40,6 +42,7 @@ export const authorizeLoggedIn = (
 
   if (!userStatus) {
     res.status(403).json({ message: "Forbidden: Not Logged In" });
+    return
   }
 
   console.log("authorized, moving onwards.");
