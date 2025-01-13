@@ -1,19 +1,11 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Button, Stack, Typography } from "@mui/material";
+import { TextField, Stack } from "@mui/material";
 import { useSubmitVehicleForm } from "../hooks/useSubmitVehiceForm";
 import PicturesField from "./PicturesField";
-
-interface LoginFormProps {
-  onSubmit: (data: {
-    carModel: string;
-    price: number;
-    phoneNumber: number;
-    maxPictures: number;
-    pictures: File[];
-  }) => void;
-  customError?: string;
-}
+import { LoginFormProps } from "../utils/types";
+import { Send } from "@mui/icons-material";
+import SubmitButton from "./primitive/SubmitButton";
 
 const VehicleForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
   const { control, handleSubmit, errors, maxPictures } = useSubmitVehicleForm();
@@ -101,14 +93,9 @@ const VehicleForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
           maxPictures={maxPictures}
           onPicturesChange={handlePicturesChange}
         />
-        {customError !== "" && (
-          <Typography color="error" variant="body2" sx={{ marginTop: 1 }}>
-            {customError}
-          </Typography>
-        )}
-        <Button type="submit" variant="contained" color="primary">
+        <SubmitButton icon={<Send />} width="40%">
           Submit
-        </Button>
+        </SubmitButton>
       </Stack>
     </form>
   );

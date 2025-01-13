@@ -9,7 +9,6 @@ export const SubmitVehicleInfo = async (data: {
   email: string;
   userLoggedIn: boolean;
 }) => {
-  console.log("submit vehicle info invoked with: ", data);
 
   const formData = new FormData();
   formData.append("carModel", data.carModel);
@@ -19,14 +18,13 @@ export const SubmitVehicleInfo = async (data: {
   formData.append("email", data.email);
   formData.append("userLoggedIn", data.userLoggedIn.toString());
 
-  // Append each file in `pictureURLs` to FormData
   data.pictureURLs.forEach((file) => {
-    formData.append("pictureURLs", file); // 'pictureURLs' matches the multer field name
+    formData.append("pictureURLs", file);
   });
 
   const response = await axiosInstance.post("/vehicle/addVehicle", formData, {
     headers: {
-      "Content-Type": "multipart/form-data", // Required for file uploads
+      "Content-Type": "multipart/form-data",
     },
   });
 

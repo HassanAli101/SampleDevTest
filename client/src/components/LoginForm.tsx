@@ -1,8 +1,10 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Button, Stack, Typography } from "@mui/material";
+import { TextField, Stack, Typography } from "@mui/material";
 import PasswordInput from "./primitive/PasswordInput";
 import { useLoginForm } from "../hooks/useLoginForm";
+import LoginIcon from "@mui/icons-material/Login";
+import SubmitButton from "./primitive/SubmitButton";
 
 interface LoginFormProps {
   onSubmit: (data: { email: string; password: string }) => void;
@@ -51,19 +53,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
             {customError}
           </Typography>
         )}
-        <Button
-          type="submit"
-          variant="outlined"
-          color="secondary"
-          sx={{
-            padding: "8px",
-            width: "80%",
-            display: "block",
-            margin: "0 auto",
-          }}
+        <SubmitButton
+          icon={<LoginIcon />}
+          width="40%" 
         >
           Login
-        </Button>
+        </SubmitButton>
       </Stack>
     </form>
   );

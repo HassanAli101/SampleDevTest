@@ -7,12 +7,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-interface ImagePopupProps {
-  open: boolean;
-  onClose: () => void;
-  pictureUrls: string[];
-}
+import { ImagePopupProps } from "../utils/types";
+import {
+  VehicleViewImagePopupModal,
+  VehicleViewImagePopupBox,
+  VehicleViewImageGridBox,
+  VehicleViewImageGridBox2,
+  VehicleViewImageGridCloseButton,
+} from "../utils/styleConstants";
 
 const ImagePopup: React.FC<ImagePopupProps> = ({
   open,
@@ -25,37 +27,14 @@ const ImagePopup: React.FC<ImagePopupProps> = ({
       open={open}
       onClose={onClose}
       aria-labelledby="popup-title"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      sx={VehicleViewImagePopupModal}
     >
-      <Box
-        sx={{
-          position: "relative", 
-          width: "50%",
-          height: "50%",
-          backgroundColor: "white",
-          borderRadius: "8px",
-          boxShadow: 24,
-          padding: 3,
-          overflow: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <Box sx={VehicleViewImagePopupBox}>
         {/* Close Button */}
         <IconButton
           aria-label="close"
           onClick={onClose}
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            color: "grey.600",
-          }}
+          sx={VehicleViewImageGridCloseButton}
         >
           <CloseIcon />
         </IconButton>
@@ -71,28 +50,14 @@ const ImagePopup: React.FC<ImagePopupProps> = ({
         </Typography>
 
         {/* Image Grid */}
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 2,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={VehicleViewImageGridBox}>
           {pictureUrls.map((url, index) => (
             <Box
               key={index}
               component="img"
               src={url}
               alt={`Image ${index + 1}`}
-              sx={{
-                width: isMobile ? 150 : 300,
-                height: isMobile ? 150 : 300,
-                objectFit: "cover",
-                borderRadius: "8px",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-              }}
+              sx={VehicleViewImageGridBox2(isMobile)}
             />
           ))}
         </Box>
