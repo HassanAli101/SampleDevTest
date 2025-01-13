@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetVehiclesFromDB = exports.AddVehicleToDB = void 0;
 const VehicleModel_1 = __importDefault(require("../models/VehicleModel"));
-const logger_1 = require("../utils/logger");
 const AddVehicleToDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ carModel, price, phoneNumber, numPictures, pictureUrls, email, userLoggedIn, }) {
     try {
         const newVehicle = new VehicleModel_1.default({
@@ -26,21 +25,21 @@ const AddVehicleToDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ carM
             email,
             userLoggedIn,
         });
-        logger_1.logger.info("New Vehicle Info Added to DB with carModel: ", carModel);
         return yield newVehicle.save();
     }
     catch (error) {
-        logger_1.ErrorLogger.error("Error in VehicleService AddVehicleToDB: ", error.message || error);
+        console.error("Error in VehicleService AddVehicleToDB: ", error.message || error);
+        throw new Error("Failed to add Vehicle");
     }
 });
 exports.AddVehicleToDB = AddVehicleToDB;
 const GetVehiclesFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        logger_1.logger.info("Vehicle Information requested");
         return yield VehicleModel_1.default.find();
     }
     catch (error) {
-        logger_1.ErrorLogger.error("Error in VehicleService GetVehiclesFromDB: ", error.message || error);
+        console.error("Error in VehicleService GetVehiclesFromDB: ", error.message || error);
+        throw new Error("Failed to Get vehicles");
     }
 });
 exports.GetVehiclesFromDB = GetVehiclesFromDB;

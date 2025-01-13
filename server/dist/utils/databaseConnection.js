@@ -13,15 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const logger_1 = require("./logger");
 // MongoDB connection
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(process.env.MONGO_URI);
-        logger_1.logger.info("Connected to MongoDB");
+        console.log('Connected to MongoDB');
     }
     catch (err) {
-        logger_1.ErrorLogger.error("couldnt connect to mongoDB", new Error(err));
+        console.error('MongoDB connection error:', err);
         process.exit(1);
     }
 });

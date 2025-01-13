@@ -16,25 +16,24 @@ exports.VerifyUser = exports.LoginUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const UserModel_1 = __importDefault(require("../models/UserModel"));
-const logger_1 = require("../utils/logger");
 const SECRET_KEY = process.env.SECRET_KEY;
 const LoginUser = (_a) => __awaiter(void 0, [_a], void 0, function* ({ email, password }) {
     try {
         const user = yield UserModel_1.default.findOne({ email });
         if (!user) {
-            logger_1.logger.info("User not found with email: ", email);
+            throw new Error("User not found");
         }
         const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
         if (!isPasswordValid) {
-            logger_1.logger.info("Invalid Credentials of: ", email, password);
+            throw new Error("Invalid credentials");
         }
         const payload = { email: user.email, LoggedIn: true };
         const token = jsonwebtoken_1.default.sign(payload, SECRET_KEY);
-        logger_1.logger.info("User successfuly logged in: ", payload);
         return { user, token };
     }
     catch (error) {
-        logger_1.ErrorLogger.error("Error in AuthService LoginUser", new Error(error));
+        console.error("Error in AuthService Login: ", error.message || error);
+        throw new Error("Failed to login User");
     }
 });
 exports.LoginUser = LoginUser;
@@ -44,7 +43,8 @@ const VerifyUser = ({ token }) => {
         return decoded;
     }
     catch (error) {
-        logger_1.ErrorLogger.error("Error in Authservice Verify", new Error(error));
+        console.error("Error in AuthService Verify: ", error.message || error);
+        throw new Error("Failed to Verify User");
     }
 };
 exports.VerifyUser = VerifyUser;

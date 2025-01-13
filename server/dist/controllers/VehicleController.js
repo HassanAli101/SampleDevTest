@@ -12,11 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetVehicles = exports.AddVehicle = void 0;
 const VehicleService_1 = require("../services/VehicleService");
 const functions_1 = require("../utils/functions");
-const logger_1 = require("../utils/logger");
 const AddVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!req.files || !Array.isArray(req.files)) {
-            logger_1.logger.info("no filels found on req: ", req);
             res.status(400).json({ msg: "No files uploaded" });
             return;
         }
@@ -34,6 +32,7 @@ const AddVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(200).json({ msg: "Vehicle Added" });
     }
     catch (error) {
+        console.error("Error while adding Vehicle: ", error.message || error);
         res.status(500).json({ msg: "Failed to add Vehicle" });
     }
 });
@@ -44,6 +43,7 @@ const GetVehicles = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(200).json(items);
     }
     catch (error) {
+        console.log("Error while getting Vehicles: " + error);
         res.status(404).json({ msg: "failed to get Vehicles" });
     }
 });
