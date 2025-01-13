@@ -16,7 +16,6 @@ const useLoginPage = () => {
       setUserEmail(userInfo.user.email);
       setUserStatus(true);
       setUserToken(userInfo.token);
-      console.log("Login Successful");
       navigate("/VehicleForm");
     } catch (error: any) {
       console.error("Error during login:", error.message);
