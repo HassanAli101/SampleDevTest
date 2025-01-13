@@ -53,7 +53,7 @@ const ImagePopup: React.FC<ImagePopupProps> = ({
         <Box sx={VehicleViewImageGridBox}>
           {pictureUrls.map((url, index) => (
             <Box
-              key={index}
+              key={url}
               component="img"
               src={url}
               alt={`Image ${index + 1}`}

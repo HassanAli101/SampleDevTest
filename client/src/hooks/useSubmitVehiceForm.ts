@@ -38,8 +38,8 @@ export const useSubmitVehicleForm = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       carModel: "",
-      price: undefined,
-      phoneNumber: undefined,
+      price: 0,
+      phoneNumber: 0,
       maxPictures: 1,
     },
   });

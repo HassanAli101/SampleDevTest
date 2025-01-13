@@ -37,7 +37,7 @@ const ImagesSection: React.FC<ImagesSectionProps> = ({
         <>
           {pictureUrls.slice(0, 4).map((url, index) => (
             <Box
-              key={index}
+              key={url}
               component="img"
               src={url}
               alt={`${carModel} - ${index + 1}`}

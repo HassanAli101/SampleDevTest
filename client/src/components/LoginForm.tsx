@@ -25,6 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
         <Controller
           name="email"
           control={control}
+          defaultValue=""
           render={({ field }) => (
             <TextField
               {...field}
@@ -39,6 +40,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
         <Controller
           name="password"
           control={control}
+          defaultValue=""
           render={({ field }) => (
             <PasswordInput
               field={field}
@@ -53,10 +55,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, customError }) => {
             {customError}
           </Typography>
         )}
-        <SubmitButton
-          icon={<LoginIcon />}
-          width="40%" 
-        >
+        <SubmitButton icon={<LoginIcon />} width="40%">
           Login
         </SubmitButton>
       </Stack>
