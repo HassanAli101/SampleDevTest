@@ -1,12 +1,12 @@
 //this is the main index.ts file which combines all the work.
 import express from "express";
 import cors from "cors";
-import { envPath } from "./utils/constants";
+// import { envPath } from "./utils/constants";
 import path from "path";
 
 // Load environment variables
-import { loadEnvVars } from "./utils/loadEnvVars";
-loadEnvVars(envPath);
+// import { loadEnvVars } from "./utils/loadEnvVars";
+// loadEnvVars(envPath);
 
 // Import DB connection
 import connectDB from "./utils/databaseConnection";
