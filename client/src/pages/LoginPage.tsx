@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Stack, Typography, Box} from "@mui/material";
+import { Stack, Typography, Box, Snackbar, Alert } from "@mui/material";
 import useAuthStore from "../services/state/Auth";
 import { loginUser } from "../services/api/auth";
 import LoginForm from "../components/LoginForm";
@@ -9,6 +9,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { setUserStatus, setUserEmail, setUserToken } = useAuthStore();
   const [loginError, setLoginError] = useState<string>("");
+  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false); // Snackbar open state
+  const [snackbarMessage, setSnackbarMessage] = useState<string>(""); // Snackbar message
 
   const handleLogin = async (data: { email: string; password: string }) => {
     try {
@@ -21,7 +23,13 @@ const LoginPage = () => {
     } catch (error: any) {
       console.error("Error during login:", error.message);
       setLoginError("Incorrect Email or Password");
+      setSnackbarMessage("Login failed. Please check your credentials."); // Set the error message
+      setSnackbarOpen(true); // Open the snackbar
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false); // Close the snackbar
   };
 
   return (
@@ -50,10 +58,7 @@ const LoginPage = () => {
           WELCOME
         </Typography>
 
-        <LoginForm
-          onSubmit={handleLogin}
-          customError={loginError}
-        />
+        <LoginForm onSubmit={handleLogin} customError={loginError} />
 
         <Stack
           direction="column"
@@ -81,6 +86,21 @@ const LoginPage = () => {
           </Typography>
         </Stack>
       </Box>
+
+      {/* Snackbar for displaying login errors */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

@@ -6,7 +6,7 @@ export const AddVehicleToDB = async ({
   price,
   phoneNumber,
   numPictures,
-  pictureURLs,
+  pictureUrls,
   email,
   userLoggedIn,
 }: AddVehicleToDBProps) => {
@@ -16,7 +16,7 @@ export const AddVehicleToDB = async ({
       price,
       phoneNumber,
       numPictures,
-      pictureURLs,
+      pictureUrls,
       email,
       userLoggedIn,
     });

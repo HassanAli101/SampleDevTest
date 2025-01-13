@@ -40,7 +40,7 @@ export const useSubmitVehicleForm = () => {
       carModel: "",
       price: undefined,
       phoneNumber: undefined,
-      maxPictures: undefined,
+      maxPictures: 1,
     },
   });
 

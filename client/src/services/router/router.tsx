@@ -2,6 +2,8 @@ import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import LoginPage from "../../pages/LoginPage";
 import VehicleFormPage from "../../pages/VehicleFormPage";
 import VehicleViewPage from "../../pages/VehicleViewPage";
+import PrivateRoute from "./privateRoute";
+import Navbar from "../../components/Navbar";
 
 const Router = () => {
   return (
@@ -27,7 +29,10 @@ const Router = () => {
           path="/VehicleForm"
           element={
             <>
-              <VehicleFormPage />
+              <PrivateRoute>
+                <Navbar title="Submit Vehicles" />
+                <VehicleFormPage />
+              </PrivateRoute>
             </>
           }
         />
@@ -35,7 +40,10 @@ const Router = () => {
           path="/VehicleView"
           element={
             <>
-              <VehicleViewPage />
+              <PrivateRoute>
+                <Navbar title="Vehicle Submissions" />
+                <VehicleViewPage />
+              </PrivateRoute>
             </>
           }
         />
