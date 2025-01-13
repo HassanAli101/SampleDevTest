@@ -6,11 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //this is the main index.ts file which combines all the work.
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const constants_1 = require("./utils/constants");
 const path_1 = __importDefault(require("path"));
 // Load environment variables (comment out for deployment)
-const loadEnvVars_1 = require("./utils/loadEnvVars");
-(0, loadEnvVars_1.loadEnvVars)(constants_1.envPath);
+// import { loadEnvVars } from "./utils/loadEnvVars";
+// loadEnvVars(envPath);
 // Import DB connection
 const databaseConnection_1 = __importDefault(require("./utils/databaseConnection"));
 // Import Routes
@@ -23,8 +22,8 @@ app.use((0, cors_1.default)({
     origin: "*",
 }));
 app.use(express_1.default.json());
-app.use("/UserUploads", express_1.default.static(path_1.default.join(__dirname, "..", "public", "UserUploads")));
-console.log("path from index: ", path_1.default.join(__dirname, "..", "public", "UserUploads"));
+app.use("/UserUploads", express_1.default.static("/tmp/UserUploads"));
+console.log("path from index: ", path_1.default.join(__dirname, "/tmp/UserUploads"));
 // Route setup
 app.use("/vehicle", VehicleRoutes_1.default);
 app.use("/auth", AuthRoutes_1.default);

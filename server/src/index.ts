@@ -5,8 +5,8 @@ import { envPath } from "./utils/constants";
 import path from "path";
 
 // Load environment variables (comment out for deployment)
-import { loadEnvVars } from "./utils/loadEnvVars";
-loadEnvVars(envPath);
+// import { loadEnvVars } from "./utils/loadEnvVars";
+// loadEnvVars(envPath);
 
 // Import DB connection
 import connectDB from "./utils/databaseConnection";
@@ -25,15 +25,9 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(
-  "/UserUploads",
-  express.static(path.join(__dirname, "..", "public", "UserUploads"))
-);
+app.use("/UserUploads", express.static("/tmp/UserUploads"));
 
-console.log(
-  "path from index: ",
-  path.join(__dirname, "..", "public", "UserUploads")
-);
+console.log("path from index: ", path.join(__dirname, "/tmp/UserUploads"));
 
 // Route setup
 app.use("/vehicle", VehicleRoutes);
