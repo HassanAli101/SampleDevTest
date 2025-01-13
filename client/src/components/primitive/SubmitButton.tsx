@@ -25,6 +25,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         alignSelf: "flex-end",
         display: "flex",
         justifyContent: "center",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       }}
       endIcon={icon}
       {...props}

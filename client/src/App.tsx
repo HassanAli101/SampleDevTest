@@ -1,12 +1,13 @@
 import Router from "./services/router/router";
 import { Box } from "@mui/material";
+import { AppBackground } from "./utils/styleConstants";
 import "./App.css";
 
 function App() {
   return (
     <Box
       sx={{
-        background: "linear-gradient(to right, #c8b6ff, #3b82f6, #1e40af)",
+        background: AppBackground,
         minHeight: "100vh",
       }}
     >

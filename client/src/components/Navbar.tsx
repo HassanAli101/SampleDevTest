@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface NavbarProps {
-  title: string; 
+  title: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ title }) => {
@@ -19,7 +19,13 @@ const Navbar: React.FC<NavbarProps> = ({ title }) => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+    <AppBar
+      position="static"
+      sx={{
+        background: "#023e8a",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+      }}
+    >
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           {title}
