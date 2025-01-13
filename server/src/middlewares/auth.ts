@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Response, NextFunction } from "express";
 import { CustomRequest, ReqUser } from "../utils/types";
-import { logger } from "../utils/logger";
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -10,10 +9,11 @@ export const authenticateJWT = (
   res: Response,
   next: NextFunction
 ): void => {
+  console.log("on backend, authenticate JWT invoked");
   const authHeader = req.headers.authorization;
+  console.log("auth header is: ", authHeader);
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    logger.info("Unauthorized Access triggered for req: ", req);
     res.status(401).json({ message: "Unauthorized access" });
     return;
   }
@@ -23,13 +23,10 @@ export const authenticateJWT = (
   try {
     const decoded = jwt.verify(token, SECRET_KEY) as ReqUser;
     req.user = decoded;
-    logger.info("Authrized: ", decoded);
+    console.log("decoded is: ", decoded, " moving onto next");
     next();
   } catch (error) {
-    logger.info(
-      "JWT verification for invalid token failed: ",
-      error.message || error
-    );
+    console.error("JWT verification failed:", error.message || error);
     res.status(403).json({ message: "Invalid or expired token" });
     return;
   }
@@ -41,15 +38,14 @@ export const authorizeLoggedIn = (
   next: NextFunction
 ): void => {
   const userStatus = req.user.LoggedIn;
-  logger.info("user Status in authorize Logged in is: ", userStatus);
+  console.log("user Status in authorize Logged in is: ", userStatus);
 
   if (!userStatus) {
-    logger.info("user Not logged in");
     res.status(403).json({ message: "Forbidden: Not Logged In" });
-    return;
+    return
   }
 
-  logger.info("user Authorized");
+  console.log("authorized, moving onwards.");
 
   next();
 };
