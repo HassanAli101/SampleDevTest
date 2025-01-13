@@ -12,5 +12,11 @@
       "src": "/(.*)",
       "dest": "dist/index.js"
     }
+  ],
+  "static": [
+    {
+      "src": "src/UserUploads",
+      "dest": "/UserUploads"
+    }
   ]
 }
