@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useVehicleView } from "../hooks/useVehicleView";
 import VehicleViewCard from "../components/VehicleViewCard";
-import { Container, Typography, Stack } from "@mui/material";
+import { Container, Typography, Stack, Snackbar, Alert } from "@mui/material";
 import VehicleCardSkeleton from "../components/VehicleCardSkeleton";
 
 const VehicleViewPage: React.FC = () => {
   const { vehicles, loading, error } = useVehicleView();
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(!!error);
+
+  const handleCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") return;
+    setOpenSnackbar(false);
+  };
+
   if (loading) {
     return (
       <Container>
@@ -17,14 +27,13 @@ const VehicleViewPage: React.FC = () => {
       </Container>
     );
   }
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <Container>
       {vehicles.length === 0 ? (
-        <Typography>No submissions available.</Typography>
+        <Typography sx={{ marginTop: "10vh" }}>
+          No submissions available.
+        </Typography>
       ) : (
         <Stack sx={{ marginTop: "10vh" }}>
           {vehicles.map((vehicle) => (
@@ -39,6 +48,21 @@ const VehicleViewPage: React.FC = () => {
           ))}
         </Stack>
       )}
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          {error || "An error occurred while fetching data."}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

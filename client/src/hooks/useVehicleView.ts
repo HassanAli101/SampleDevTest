@@ -1,16 +1,6 @@
 import { useState, useEffect } from "react";
 import { GetVehiclesInfo } from "../services/api/vehicle";
-
-interface Vehicle {
-  _id: string;
-  carModel: string;
-  price: number;
-  phoneNumber: number;
-  numPictures: number;
-  pictureUrls: string[];
-  email: string;
-  userLoggedIn: boolean;
-}
+import { Vehicle } from "../utils/types";
 
 export const useVehicleView = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
