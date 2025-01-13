@@ -3,7 +3,7 @@ import useAuthStore from "../state/Auth";
 
 //localhost:4000 for running locally, domain name for deployment
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000", // Base URL
+  baseURL: "https://rhodium-dev-test-server.vercel.app", // Base URL
 });
 
 //Request interceptor
