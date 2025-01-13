@@ -1,65 +1,39 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { Stack, Typography, Box, Snackbar, Alert } from "@mui/material";
-import useAuthStore from "../services/state/Auth";
-import { loginUser } from "../services/api/auth";
 import LoginForm from "../components/LoginForm";
+import useLoginPage from "../hooks/useLoginPage";
+import {
+  PageBoxStyle,
+  FormBoxStyle,
+  FormTitleStyle,
+  SecondaryTextColor,
+} from "../utils/styleConstants";
+import TextBold from "../components/primitive/TextBold";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const { setUserStatus, setUserEmail, setUserToken } = useAuthStore();
-  const [loginError, setLoginError] = useState<string>("");
-  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false); // Snackbar open state
-  const [snackbarMessage, setSnackbarMessage] = useState<string>(""); // Snackbar message
-
-  const handleLogin = async (data: { email: string; password: string }) => {
-    try {
-      const userInfo = await loginUser(data);
-      setUserEmail(userInfo.user.email);
-      setUserStatus(true);
-      setUserToken(userInfo.token);
-      console.log("Login Successful");
-      navigate("/VehicleForm");
-    } catch (error: any) {
-      console.error("Error during login:", error.message);
-      setLoginError("Incorrect Email or Password");
-      setSnackbarMessage("Login failed. Please check your credentials."); // Set the error message
-      setSnackbarOpen(true); // Open the snackbar
-    }
-  };
-
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false); // Close the snackbar
-  };
+  const maxWidthValue = 400;
+  const {
+    handleLogin,
+    loginError,
+    snackbarOpen,
+    snackbarMessage,
+    handleCloseSnackbar,
+  } = useLoginPage();
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        background: "linear-gradient(to right, #c8b6ff, #3b82f6, #1e40af)",
-        padding: 2,
-      }}
-    >
-      <Box
-        sx={{
-          backgroundColor: "white",
-          borderRadius: 2,
-          padding: 4,
-          boxShadow: 3,
-          width: "100%",
-          maxWidth: 400,
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h5" sx={{ marginBottom: 2, color: "#1e40af" }}>
+    <Box sx={PageBoxStyle}>
+      <Box sx={FormBoxStyle(maxWidthValue)}>
+        <Typography variant="h5" sx={FormTitleStyle}>
           WELCOME
         </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Please Login to your account
+        </Typography>
 
+        {/* The login form */}
         <LoginForm onSubmit={handleLogin} customError={loginError} />
 
+        {/* Acompanying text */}
         <Stack
           direction="column"
           spacing={2}
@@ -69,25 +43,20 @@ const LoginPage = () => {
           <Typography variant="body2" color="textSecondary">
             Don't have an account? Please use these credentials:
           </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            sx={{ fontWeight: "bold" }}
-          >
+          <TextBold>
             Email:{" "}
-            <span style={{ color: "#9c27b0" }}>Faraz@RhodiumTech.com</span>
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            sx={{ fontWeight: "bold" }}
-          >
-            Password: <span style={{ color: "#9c27b0" }}>123456abc</span>
-          </Typography>
+            <span style={{ color: SecondaryTextColor }}>
+              Faraz@RhodiumTech.com
+            </span>
+          </TextBold>
+          <TextBold>
+            Password:{" "}
+            <span style={{ color: SecondaryTextColor }}>123456abc</span>
+          </TextBold>
         </Stack>
       </Box>
 
-      {/* Snackbar for displaying login errors */}
+      {/* Snackbar */}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}
