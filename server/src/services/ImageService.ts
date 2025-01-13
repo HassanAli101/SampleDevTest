@@ -3,7 +3,14 @@ import path from "path";
 
 export const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, "..", "UserUploads");
+    const uploadPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "UserUploads"
+    );
+
     console.log("upload Path is: ", uploadPath);
     cb(null, uploadPath);
   },
@@ -12,4 +19,3 @@ export const storage = multer.diskStorage({
     cb(null, uniqueName);
   },
 });
-

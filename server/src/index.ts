@@ -1,12 +1,12 @@
 //this is the main index.ts file which combines all the work.
 import express from "express";
 import cors from "cors";
-// import { envPath } from "./utils/constants";
+import { envPath } from "./utils/constants";
 import path from "path";
 
-// Load environment variables
-// import { loadEnvVars } from "./utils/loadEnvVars";
-// loadEnvVars(envPath);
+// Load environment variables (comment out for deployment)
+import { loadEnvVars } from "./utils/loadEnvVars";
+loadEnvVars(envPath);
 
 // Import DB connection
 import connectDB from "./utils/databaseConnection";
@@ -25,7 +25,15 @@ app.use(
   })
 );
 app.use(express.json());
-app.use("/UserUploads", express.static(path.join(__dirname, "UserUploads")));
+app.use(
+  "/UserUploads",
+  express.static(path.join(__dirname, "..", "public", "UserUploads"))
+);
+
+console.log(
+  "path from index: ",
+  path.join(__dirname, "..", "public", "UserUploads")
+);
 
 // Route setup
 app.use("/vehicle", VehicleRoutes);
