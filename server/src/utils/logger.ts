@@ -9,9 +9,9 @@ export const logger = winston.createLogger({
   format: combine(timestamp(), json(), prettyPrint()),
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({
-      filename: path.join(logDirectory, "AllLogs.log"),
-    }),
+    // new winston.transports.File({
+    //   filename: path.join(logDirectory, "AllLogs.log"),
+    // }),
   ],
 });
 
@@ -20,11 +20,11 @@ export const ErrorLogger = winston.createLogger({
   format: combine(timestamp(), json(), prettyPrint(), errors({ stack: true })),
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({
-      filename: path.join(logDirectory, "ErrorLogs.log"),
-    }),
-    new winston.transports.File({
-      filename: path.join(logDirectory, "AllLogs.log"),
-    }),
+    // new winston.transports.File({
+    //   filename: path.join(logDirectory, "ErrorLogs.log"),
+    // }),
+    // new winston.transports.File({
+    //   filename: path.join(logDirectory, "AllLogs.log"),
+    // }),
   ],
 });
