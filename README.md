@@ -1,6 +1,6 @@
-# RhodiumDevTest
+# SampleDevTest
 
-A repository which holds code for full-stack developer application assignment for Rhodium Tech
+A repository which holds code for full-stack developer application assignment.
 
 Made using React, Typescript, Nodejs, Expressjs, Mongodb, MaterialUI, Zustand, Multer, Vercel
 
